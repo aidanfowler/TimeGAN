@@ -51,7 +51,7 @@ function generateImage() {
 function draw() {
   //tell user model is waking up if runway has been sleeping
   if (wakingUp) {
-    text('Waking Up Model... this can take some time if the endpoint has been sleeping', 10, 10);
+    text('Waking Up Model... this can take some time if the endpoint has been sleeping', windowWidth/3, windowHeight/2);
   }
   //this will run one time if we are only generating one frame
   else if (showOneFrame){
