@@ -16,7 +16,7 @@ function setup() {
     showOneFrame = true;
   }
   console.log(url);
-  fullscreen(true); //uncomment this if you are viewing in p5 editor otherwise image will be in weird spot
+  //fullscreen(true); //uncomment this if you are viewing in p5 editor otherwise image will be in weird spot
   bg = loadImage('gradientMeshSmall.jpg'); //load background image
   createCanvas(windowWidth, windowHeight); //make canvas size of window
   model = new rw.HostedModel({ 
