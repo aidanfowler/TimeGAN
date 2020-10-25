@@ -8,8 +8,8 @@ let imageWidth = 512*1.5;
 let imageHeight = 698*1.5;
 
 function setup() {
-  fullscreen(true);
-  bg = loadImage('/assets/gradientMeshSmall.jpg');
+  //fullscreen(true);
+  bg = loadImage('gradientMeshSmall.jpg');
   createCanvas(windowWidth, windowHeight);
   model = new rw.HostedModel({
     url: "https://timemagazinegan-portraits.hosted-models.runwayml.cloud/v1/",
