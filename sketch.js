@@ -15,7 +15,6 @@ function setup() {
   if(url.indexOf('frame') != -1){
     showOneFrame = true;
   }
-  console.log(url);
   //fullscreen(true); //uncomment this if you are viewing in p5 editor otherwise image will be in weird spot
   bg = loadImage('gradientMeshSmall.jpg'); //load background image
   createCanvas(windowWidth, windowHeight); //make canvas size of window
@@ -57,7 +56,7 @@ function draw() {
   else if (showOneFrame){
     if(!oneFrameLoaded){
       background(bg);
-      image(new_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2)*.8, imageWidth, imageHeight);
+      image(new_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2), imageWidth, imageHeight);
       oneFrameLoaded = true;
     }
   }
@@ -68,11 +67,11 @@ function draw() {
       //image(bg,0,0,displayWidth, displayHeight);
       if (old_image) {
         tint(255, 255 - (frameCount % 255));
-        image(old_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2)*.8, imageWidth, imageHeight);
+        image(old_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2), imageWidth, imageHeight);
       }
       if (current_image) {
         tint(255, frameCount % 255);
-        image(current_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2)*.8, imageWidth, imageHeight);
+        image(current_image, displayWidth/2-imageWidth/2, (displayHeight/2-imageHeight/2), imageWidth, imageHeight);
       }
     }
     if (frameCount % 100 == 0) {
