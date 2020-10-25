@@ -1,30 +1,30 @@
-let current_image;
-let old_image;
-let new_image;
-let model;
-let wakingUp = true;
-let bg;
-let imageWidth = 512*1.5;
-let imageHeight = 698*1.5;
-let url;
-let showOneFrame = false;
-let oneFrameLoaded = false;
+let current_image; //image that is displayed
+let old_image; //image that is fading away
+let new_image; //load new image before switching between current and old so there is no glitch when switching
+let model; //runway model
+let wakingUp = true; //display message if model is not activated
+let bg; //background image
+let imageWidth = 512*1.5; //time mag cover width
+let imageHeight = 698*1.5;//time mag cover height
+let showOneFrame = false; //track if we are running in generative mode or one frame mode
+let oneFrameLoaded = false; //only show frame one time if in one frame mode
 
 function setup() {
-  url = getURL(); 
+  //if url contains frame, only generate one image and keep it on page
+  let url = getURL(); 
   if(url.indexOf('frame') != -1){
     showOneFrame = true;
   }
-  console.log(url.indexOf('frame'));
-  //fullscreen(true);
-  bg = loadImage('gradientMeshSmall.jpg');
-  createCanvas(windowWidth, windowHeight);
-  model = new rw.HostedModel({
+  //fullscreen(true); //uncomment this if you are viewing in p5 editor otherwise image will be in weird spot
+  bg = loadImage('gradientMeshSmall.jpg'); //load background image
+  createCanvas(windowWidth, windowHeight); //make canvas size of window
+  model = new rw.HostedModel({ 
     url: "https://timemagazinegan-portraits.hosted-models.runwayml.cloud/v1/",
-  });
-  generateImage();
+  }); //initialize runway model
+  generateImage(); //generate first image
 }
 
+//create z vector, pass to runway, get back generated image, save in new image
 function generateImage() {
   const z = [];
   for (let i = 0; i < 512; i++) {
@@ -48,17 +48,19 @@ function generateImage() {
 }
 
 function draw() {
+  //tell user model is waking up if runway has been sleeping
   if (wakingUp) {
-    text('Waking Up Model...', 10, 10);
+    text('Waking Up Model... this can take some time if the endpoint has been sleeping', 10, 10);
   }
+  //this will run one time if we are only generating one frame
   else if (showOneFrame){
-    console.log('show one frame only');
     if(!oneFrameLoaded){
       background(bg);
       image(new_image, displayWidth/2-imageWidth/2, displayHeight/2-imageHeight/2, imageWidth, imageHeight);
       oneFrameLoaded = true;
     }
   }
+  //fade between new image and prior image forever
   else{
     if (frameCount % 255 > 0) {
       background(bg);
@@ -81,7 +83,7 @@ function draw() {
     }
   }
 }
-
+//if resizing window, change canvas dimensions 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
