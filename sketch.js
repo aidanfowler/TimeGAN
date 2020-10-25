@@ -8,7 +8,7 @@ let imageWidth = 512*1.5;
 let imageHeight = 698*1.5;
 
 function setup() {
-  //fullscreen(true);
+  fullscreen(true);
   bg = loadImage('/assets/gradientMeshSmall.jpg');
   createCanvas(windowWidth, windowHeight);
   model = new rw.HostedModel({
@@ -42,7 +42,7 @@ function draw() {
   if (wakingUp) {
     text('Waking Up Model...', 10, 10);
   }
-  if (frameCount % 255 > 0) {
+  else if (frameCount % 255 > 0) {
     background(bg);
     //image(bg,0,0,displayWidth, displayHeight);
     if (old_image) {
