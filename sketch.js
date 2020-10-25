@@ -4,8 +4,8 @@ let new_image; //load new image before switching between current and old so ther
 let model; //runway model
 let wakingUp = true; //display message if model is not activated
 let bg; //background image
-let imageWidth = 512*1.5; //time mag cover width
-let imageHeight = 698*1.5;//time mag cover height
+let imageWidth;
+let imageHeight;
 let showOneFrame = false; //track if we are running in generative mode or one frame mode
 let oneFrameLoaded = false; //only show frame one time if in one frame mode
 
@@ -17,6 +17,8 @@ function setup() {
   }
   bg = loadImage('gradientMeshSmall.jpg'); //load background image
   createCanvas(windowWidth, windowHeight); //make canvas size of window
+  imageHeight = windowHeight*.8;
+  imageWidth = imageHeight*.7335;
   model = new rw.HostedModel({ 
     url: "https://timemagazinegan-portraits.hosted-models.runwayml.cloud/v1/",
   }); //initialize runway model
@@ -62,8 +64,7 @@ function draw() {
   //fade between new image and prior image forever
   else{
     if (frameCount % 255 > 0) {
-      background(bg);
-      //image(bg,0,0,displayWidth, displayHeight);
+      background(bg,0,0,windowWidth,windowHeight);
       if (old_image) {
         tint(255, 255 - (frameCount % 255));
         image(old_image, windowWidth/2-imageWidth/2, (windowHeight/2-imageHeight/2), imageWidth, imageHeight);
@@ -85,4 +86,6 @@ function draw() {
 //if resizing window, change canvas dimensions 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  imageHeight = windowHeight*.8;
+  imageWidth = imageHeight*.7335;
 }
