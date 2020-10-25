@@ -23,6 +23,7 @@ function setup() {
     url: "https://timemagazinegan-portraits.hosted-models.runwayml.cloud/v1/",
   }); //initialize runway model
   generateImage(); //generate first image
+  switchImages();//save first image
 }
 
 //create z vector, pass to runway, get back generated image, save in new image
@@ -33,7 +34,7 @@ function generateImage() {
   }
   const data = {
     z: z,
-    truncation: 0.6
+    truncation: 0.4
   };
   model.query(data).then(outputs => {
     const {
@@ -78,10 +79,14 @@ function draw() {
       generateImage();
     }
     if (frameCount % 255 == 0) {
-      old_image = current_image;
-      current_image = new_image;
+      switchImages();
     }
   }
+}
+
+function switchImages(){
+  old_image = current_image;
+  current_image = new_image;
 }
 //if resizing window, change canvas dimensions 
 function windowResized() {
